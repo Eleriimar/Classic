@@ -1,0 +1,15 @@
+# Deny access to sensitive files
+
+<FilesMatch "\.(htaccess|htpasswd|ini|log|env)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Redirect HTTP to HTTPS
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.\*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
